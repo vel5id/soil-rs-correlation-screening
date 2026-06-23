@@ -11,3 +11,5 @@ Thumbs.db
 *.bak
 .ipynb_checkpoints/
 ~$*.docx
+math_statistics/output/*.xlsx
+ML/results/_*.md

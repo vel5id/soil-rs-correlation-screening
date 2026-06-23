@@ -1,7 +1,7 @@
-prop,screen_draft,screen_clean,farmLOFO_rho,farmLOFO_R2,top_imp_feature,top_imp,most_stable_feature,top5_freq
-pH,0.67,0.67,0.434,0.303,s2_S2REP_spring,0.081,s2_S2REP_spring,0.35
-P2O5,0.525,0.476,0.418,0.133,climate_GS_temp,0.136,topo_plan_curvature,0.3
-K2O,0.478,0.478,0.331,0.047,topo_TPI,0.112,topo_plan_curvature,0.35
-NO3,0.431,0.431,0.215,0.15,s2_B5_spring,0.075,s2_B5_spring,0.35
-SOC,0.373,0.368,0.249,-0.109,climate_GS_temp,0.107,topo_DEM,0.35
-S,0.383,0.309,0.038,0.609,topo_profile_curvature,0.19,topo_profile_curvature,0.45
+target,farm_lofo_rho,farm_lofo_r2,n,n_farms,best_feature,best_imp,best_top5_freq
+ph,0.434,0.303,1085,20,s2_S2REP_spring,0.0814,0.3
+soc,0.249,-0.109,1085,20,climate_GS_temp,0.1065,0.2
+no3,0.215,0.15,1085,20,s2_B5_spring,0.0749,0.35
+p,0.418,0.133,1085,20,climate_GS_temp,0.1337,0.1
+k,0.331,0.047,1085,20,topo_TPI,0.1159,0.25
+s,0.038,0.609,1085,20,topo_profile_curvature,0.1878,0.45

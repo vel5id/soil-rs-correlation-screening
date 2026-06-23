@@ -37,3 +37,8 @@ Results are deterministic (fixed seeds).
 ## Data note
 Soil laboratory values come from 2022-2023 field campaigns; remote-sensing covariates are derived
 from public Sentinel-2 / Landsat-8 / Sentinel-1 / SRTM / ERA5-Land imagery via Google Earth Engine.
+
+## Reproducibility
+All manuscript numbers are byte-reproducible from data/features/master_dataset_old.csv with the committed code and fixed seeds: re-running the screening, the corrected Tables 7/S1/13, the Table 16 variance components, the spatial-CV comparison, the per-feature quality decomposition, the empirical taxonomy and the Farm-LOFO metrics regenerates the committed CSVs identically (verified by an empty git status after a full re-run).
+
+Caveat: farm_lofo_feature_importance.py is a secondary diagnostic (not used in the manuscript tables); its permutation importances are seeded but vary sub-percent run-to-run under parallel execution, while the feature rankings are stable. The ML/results/*.md files are written narratives, not script-generated.
