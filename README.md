@@ -17,6 +17,9 @@ paper) - and share no results or manuscript text.
 ## Key result
 ![Key result: ICC vs out-of-farm predictability](math_statistics/output/plots/00_key_icc_predictability.png)
 
+<img width="1211" height="1225" alt="image" src="https://github.com/user-attachments/assets/28955263-ad29-4c51-b56e-1ce42477469f" />
+
+
 **Between-field structure (ICC) governs out-of-farm predictability.** For each soil property, the
 honest out-of-farm Farm-LOFO ρ with its best remote-sensing feature scales with the property's
 between-field variance share (Spearman ρ(ICC, out-of-farm) = **+0.83**): the high-structure
