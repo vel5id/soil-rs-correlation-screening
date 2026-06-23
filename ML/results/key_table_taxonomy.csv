@@ -1,0 +1,7 @@
+Property,|rho|max(LC),Farm-LOFO rho,general.(robust),zonal_only,unstable,weak,best transferable feature,verdict
+pH,0.67,0.434,13 (6),134,86,279,l8_GNDVI_spring (-0.67),mappable (regional + local)
+K2O,0.478,0.331,27 (10),27,70,388,s2_NBR_spring (+0.36),mappable (regional + local)
+P2O5,0.476,0.418,8 (3),25,33,446,glcm_glcm_nir_ent_summer (-0.39),weakly mappable
+NO3,0.431,0.215,44 (12),9,123,336,l8_SR_B5_spring (-0.41),weakly mappable
+SOC,0.368,0.249,4 (0),13,15,480,-,indirect / weak out-of-farm
+S,0.309,0.038,0 (0),37,77,398,-,unpredictable
