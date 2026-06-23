@@ -27,7 +27,7 @@ from pathlib import Path
 
 from .config import (
     SOIL_TARGETS, SOIL_LABELS, SEASONS, SEASON_LABELS,
-    TOPO_COLS, CLIMATE_COLS, OUTPUT_DIR,
+    TOPO_COLS, CLIMATE_COLS, OUTPUT_DIR, FEATURES_CSV,
 )
 
 # Global plot style
@@ -716,10 +716,15 @@ def run_all_plots(df: pd.DataFrame,
 if __name__ == "__main__":
     import os
     print("Loading data for plot generation...")
-    # Load raw data
-    df_path = Path("data/features/full_dataset.csv")
+    # Load raw data (same dataset the rest of the screening pipeline uses).
+    # NOTE: the canonical, fully reproducible figure command is
+    #   python -m math_statistics.run_all
+    # which builds every input DataFrame in-memory. This standalone path only
+    # regenerates the subset of figures whose pre-computed tables already exist
+    # in OUTPUT_DIR.
+    df_path = FEATURES_CSV
     if not df_path.exists():
-        print("Error: data/features/full_dataset.csv not found.")
+        print(f"Error: {df_path} not found.")
         exit(1)
     df = pd.read_csv(df_path)
     
