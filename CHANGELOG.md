@@ -28,6 +28,18 @@ Cites Roberts 2017, Meyer 2018/2019, Ploton 2020, Wadoux 2021. Old 4.5 Limitatio
 - Language fix ("focused on focusing on" -> corrected).
 - Data Availability: concatenated URLs -> a single new-repo URL, independent of [18].
 
+## Figure 12 - replaced with the corrected, leakage-controlled version
+The previous Figure 12 plotted naive full-pool screening |rho| (pre-leakage-fix): it put sulfur
+at the top (|rho| ~ 0.85, lowest ICC) and implied a spurious *negative* ICC-correlation slope,
+contradicting the surrounding text (which already describes S as essentially unpredictable).
+Replaced in place (`word/media/image12.png`) with a figure built from corrected values: ICC vs
+out-of-farm Farm-LOFO rho (filled, coloured by verdict) with naive in-sample |rho| overlaid
+(open circles) and the in-sample -> out-of-farm collapse shown as arrows. Out-of-farm
+predictability rises with ICC (Spearman rho = +0.83, p = 0.04), whereas the naive-screening
+relationship is not significant (p = 0.27); sulfur collapses from |rho| ~ 0.42 to ~ 0.04.
+Caption and the Sec. 3.7 intro paragraph updated to match (green). Reproducible via
+`python -m math_statistics.key_figure` (deterministic, byte-identical across runs).
+
 ## Open items for the author
 - Push this repo to GitHub and fill the real URL + Zenodo DOI in Data Availability.
 - Confirm the per-year sample/farm counts (2022: 174/5; 2023: 911/15) against sampling records.
