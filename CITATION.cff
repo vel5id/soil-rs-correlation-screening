@@ -18,6 +18,7 @@ authors:
   - family-names: Yskak
     given-names: Aliya
     affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+    orcid: "https://orcid.org/0000-0002-8313-8982"
   - family-names: Kuanyshbayev
     given-names: Seitbek
     affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
@@ -27,18 +28,23 @@ authors:
   - family-names: Yermoldina
     given-names: "Gulnaz T."
     affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+    orcid: "https://orcid.org/0000-0003-2143-7618"
   - family-names: Nugmanov
     given-names: "Almabek B."
     affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+    orcid: "https://orcid.org/0000-0002-7060-3996"
   - family-names: Fominov
     given-names: "Vladimir D."
     affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+    orcid: "https://orcid.org/0009-0002-1663-1803"
   - family-names: Suimenbayeva
     given-names: "Zhanna B."
     affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+    orcid: "https://orcid.org/0000-0002-2347-356X"
   - family-names: Irzhanov
     given-names: "Zhassulan B."
     affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+    orcid: "https://orcid.org/0009-0002-4009-3507"
   - family-names: Lyanga
     given-names: Petr
     affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
@@ -48,6 +54,7 @@ authors:
   - family-names: Bulaev
     given-names: "Aleksandr G."
     affiliation: "Research Center of Biotechnology, Russian Academy of Sciences, Moscow, Russia"
+    orcid: "https://orcid.org/0000-0001-7914-9817"
 references:
   # --- Soil-property estimation from remote sensing (same research topic) ---
   - type: article

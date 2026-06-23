@@ -6,20 +6,20 @@
   "version": "v1.0.0",
   "language": "eng",
   "creators": [
-    {"name": "Yskak, Aliya", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Yskak, Aliya", "orcid": "0000-0002-8313-8982", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
     {"name": "Kuanyshbayev, Seitbek", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
     {"name": "Bekmyrza, Zhumash", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
-    {"name": "Yermoldina, Gulnaz T.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
-    {"name": "Nugmanov, Almabek B.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
-    {"name": "Fominov, Vladimir D.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
-    {"name": "Suimenbayeva, Zhanna B.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
-    {"name": "Irzhanov, Zhassulan B.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Yermoldina, Gulnaz T.", "orcid": "0000-0003-2143-7618", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Nugmanov, Almabek B.", "orcid": "0000-0002-7060-3996", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Fominov, Vladimir D.", "orcid": "0009-0002-1663-1803", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Suimenbayeva, Zhanna B.", "orcid": "0000-0002-2347-356X", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Irzhanov, Zhassulan B.", "orcid": "0009-0002-4009-3507", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
     {"name": "Lyanga, Petr", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
     {"name": "Zhumalynov, Kuanysh", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
-    {"name": "Bulaev, Aleksandr G.", "affiliation": "Research Center of Biotechnology, Russian Academy of Sciences, Moscow, Russia"}
+    {"name": "Bulaev, Aleksandr G.", "orcid": "0000-0001-7914-9817", "affiliation": "Research Center of Biotechnology, Russian Academy of Sciences, Moscow, Russia"}
   ],
   "description": "<p><strong>Code and reproducible outputs</strong> for the correlation-screening study <em>Digital Soil Mapping of the Steppe Zone of Northern Kazakhstan: Relationships Between Agrochemical Soil Properties and Multimodal Remote Sensing Data</em>. This is the feature-screening / feature-quality companion of the machine- and deep-learning modelling paper (doi:10.3390/agriculture16111239), with which it shares only the underlying soil dataset and no results or manuscript text.</p><p><strong>Study.</strong> 1,085 topsoil samples (0-25 cm) from 20 farms and 81 fields across the Northern Kazakhstan steppe (2022-2023). Six agrochemical properties (pH(KCl), SOC, NO3, P2O5, K2O, S) are screened against 512 multimodal remote-sensing features (Sentinel-2, Landsat-8, Sentinel-1 SAR, SRTM and ERA5-Land via Google Earth Engine; 140 spectral indices over four seasonal windows) plus 110 composite features.</p><p><strong>Method.</strong> Spearman screening with Benjamini-Hochberg FDR under leakage control (temporal alignment and out-of-farm Farm-LOFO cross-validation, 20 folds), plus nested variance components, spatial-autocorrelation analysis (Moran's I with declustering), pH-confounding and an empirical feature taxonomy (generalizable / zonal-only / unstable / weak).</p><p><strong>Key result.</strong> A property's honest out-of-farm predictability scales with its between-field variance share (ICC): Spearman rho(ICC, out-of-farm) = +0.83. The high-structure properties (pH, K2O, P2O5, SOC) generalise, whereas sulfur - the property with the lowest between-field structure (ICC = 0.17) - does not (out-of-farm rho ~ 0.04), so its high in-sample correlation is a signature of leakage rather than signal.</p><p><strong>Contents.</strong> Analysis code (math_statistics/, ML/) and the reproducible result tables and figures; deterministic (SEED = 42) and byte-reproducible.</p><p><strong>Data note.</strong> The raw sample-level soil laboratory data are NOT included here (commercially sensitive; the same data as the companion study, archived separately - see Related identifiers). The analysis is fully reproducible from that dataset as described in the README.</p>",
-  "notes": "Raw sample-level soil laboratory data (master_dataset_old.csv, soil_analysis.xlsx) are deliberately excluded from this archive because they are commercially sensitive; the analysis is fully reproducible from that private dataset per the README. TODO for authors before publishing: (1) confirm which of the two related Zenodo records is the dataset vs. the companion code and refine the relation types if needed; (2) add ORCID iDs to creators.",
+  "notes": "Raw sample-level soil laboratory data (master_dataset_old.csv, soil_analysis.xlsx) are deliberately excluded because they are commercially sensitive; the analysis is fully reproducible from that private dataset per the README. The underlying dataset is archived as 10.5281/zenodo.19496443 (Dataset) and the companion code/models as 10.5281/zenodo.19496423 (Software). ORCID iDs are included for the co-authors shared with that dataset; four authors new to this screening study (Kuanyshbayev, Bekmyrza, Lyanga, Zhumalynov) have no ORCID listed yet.",
   "keywords": [
     "digital soil mapping",
     "soil agrochemical properties",
@@ -43,7 +43,7 @@
     {"relation": "references", "identifier": "10.1038/s41467-020-18321-y", "scheme": "doi", "resource_type": "publication-article"},
     {"relation": "references", "identifier": "10.1016/j.ecolmodel.2019.108815", "scheme": "doi", "resource_type": "publication-article"},
     {"relation": "references", "identifier": "10.3390/agriculture16111239", "scheme": "doi", "resource_type": "publication-article"},
-    {"relation": "isDerivedFrom", "identifier": "10.5281/zenodo.19496423", "scheme": "doi"},
-    {"relation": "isDerivedFrom", "identifier": "10.5281/zenodo.19496443", "scheme": "doi"}
+    {"relation": "references", "identifier": "10.5281/zenodo.19496423", "scheme": "doi", "resource_type": "software"},
+    {"relation": "isDerivedFrom", "identifier": "10.5281/zenodo.19496443", "scheme": "doi", "resource_type": "dataset"}
   ]
 }
