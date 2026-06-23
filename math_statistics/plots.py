@@ -12,7 +12,6 @@ Generates:
 8. Spatial maps of soil properties (Figure 8)
 9. QQ-plots for normality check
 10. Boxplots by year
-11. VIF bar chart (multicollinearity check)
 12. Bootstrap CI for key correlations
 """
 
@@ -429,57 +428,6 @@ def plot_claim_verification(claims_df: pd.DataFrame):
 
 
 # ──────────────────────────────────────────────────────────────────
-# 13. VIF check (multicollinearity)
-# ──────────────────────────────────────────────────────────────────
-def plot_vif(df: pd.DataFrame, top_n: int = 30):
-    """Variance Inflation Factor for top correlated features.
-
-    High VIF (>10) signals multicollinearity that could affect model stability.
-    """
-    from sklearn.linear_model import LinearRegression
-
-    # Select numeric RS features with no NaN
-    exclude = {"id", "year", "grid_id", "centroid_lon", "centroid_lat"}
-    num_cols = [c for c in df.select_dtypes(include="number").columns
-                if c not in exclude and c not in SOIL_TARGETS and c != "hu"]
-    sub = df[num_cols].dropna(axis=1, how="any").dropna()
-
-    if sub.shape[1] < 2 or sub.shape[0] < 50:
-        return
-
-    # Subsample for speed
-    if len(sub) > 2000:
-        sub = sub.sample(2000, random_state=42)
-
-    # Compute VIF for each column
-    vifs = []
-    X = sub.values
-    for i in range(min(X.shape[1], 50)):  # limit to 50 features
-        y_i = X[:, i]
-        X_rest = np.delete(X, i, axis=1)
-        lr = LinearRegression().fit(X_rest, y_i)
-        r2 = lr.score(X_rest, y_i)
-        vif = 1 / (1 - r2) if r2 < 1 else np.inf
-        vifs.append({"Feature": sub.columns[i], "VIF": vif})
-
-    vif_df = pd.DataFrame(vifs).sort_values("VIF", ascending=False).head(top_n)
-
-    fig, ax = plt.subplots(figsize=(10, 8))
-    colors = ["red" if v > 10 else "orange" if v > 5 else "steelblue" for v in vif_df["VIF"]]
-    ax.barh(range(len(vif_df)), vif_df["VIF"].values, color=colors)
-    ax.set_yticks(range(len(vif_df)))
-    ax.set_yticklabels(vif_df["Feature"].values, fontsize=7)
-    ax.set_xlabel("VIF")
-    ax.set_title(f"Top-{top_n} Variance Inflation Factors (VIF > 10 = high multicollinearity)")
-    ax.axvline(10, color="red", ls="--", lw=1, label="VIF = 10")
-    ax.axvline(5, color="orange", ls="--", lw=1, label="VIF = 5")
-    ax.legend()
-    ax.invert_yaxis()
-    fig.tight_layout()
-    _save(fig, "13_vif_multicollinearity")
-
-
-# ──────────────────────────────────────────────────────────────────
 # 14. Composite vs Single comparison (Figure 5 of v2)
 # ──────────────────────────────────────────────────────────────────
 def plot_composite_vs_single(comparison_df: pd.DataFrame):
@@ -703,7 +651,6 @@ def run_all_plots(df: pd.DataFrame,
         plot_claim_verification(claims_df)
 
     plot_bootstrap_ci(df)
-    plot_vif(df)
 
     # v2 additions
     plot_composite_vs_single(comparison_df)
