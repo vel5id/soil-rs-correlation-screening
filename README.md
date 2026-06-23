@@ -1,5 +1,8 @@
 # Soil-Remote-Sensing Correlation Screening (Northern Kazakhstan steppe)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20820838.svg)](https://doi.org/10.5281/zenodo.20820838)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
 Reproducible code and data for the manuscript *"Digital Soil Mapping of the Steppe Zone of
 Northern Kazakhstan: Relationships Between Agrochemical Soil Properties and Multimodal Remote
 Sensing Data - Analysis of 530 Features."*
