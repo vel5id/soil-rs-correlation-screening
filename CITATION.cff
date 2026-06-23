@@ -49,6 +49,73 @@ authors:
     given-names: "Aleksandr G."
     affiliation: "Research Center of Biotechnology, Russian Academy of Sciences, Moscow, Russia"
 references:
+  # --- Soil-property estimation from remote sensing (same research topic) ---
+  - type: article
+    title: "Evaluating the capability of the Sentinel-2 data for soil organic carbon prediction in croplands"
+    doi: 10.1016/j.isprsjprs.2018.11.026
+    year: 2019
+    journal: "ISPRS Journal of Photogrammetry and Remote Sensing"
+    authors:
+      - family-names: Castaldi
+        given-names: Fabio
+  - type: article
+    title: "Sentinel-2 image capacities to predict common topsoil properties of temperate and Mediterranean agroecosystems"
+    doi: 10.1016/j.rse.2019.01.006
+    year: 2019
+    journal: "Remote Sensing of Environment"
+    authors:
+      - family-names: Vaudour
+        given-names: Emmanuelle
+  - type: article
+    title: "Soil variability and quantification based on Sentinel-2 and Landsat-8 bare soil images: A comparison"
+    doi: 10.1016/j.rse.2020.112117
+    year: 2021
+    journal: "Remote Sensing of Environment"
+    authors:
+      - family-names: Silvero
+        given-names: "Nelida E. Q."
+  - type: article
+    title: "Top soil physical and chemical properties in Kazakhstan across a north-south gradient"
+    doi: 10.1038/sdata.2018.242
+    year: 2018
+    journal: "Scientific Data"
+    authors:
+      - family-names: Yapiyev
+        given-names: Vadim
+  # --- Spatial / leakage-aware cross-validation (core methodological stance) ---
+  - type: article
+    title: "Spatial cross-validation is not the right way to evaluate map accuracy"
+    doi: 10.1016/j.ecolmodel.2021.109692
+    year: 2021
+    journal: "Ecological Modelling"
+    authors:
+      - family-names: Wadoux
+        given-names: "Alexandre M. J.-C."
+  - type: article
+    title: "Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure"
+    doi: 10.1111/ecog.02881
+    year: 2017
+    journal: "Ecography"
+    authors:
+      - family-names: Roberts
+        given-names: "David R."
+  - type: article
+    title: "Spatial validation reveals poor predictive performance of large-scale ecological mapping models"
+    doi: 10.1038/s41467-020-18321-y
+    year: 2020
+    journal: "Nature Communications"
+    authors:
+      - family-names: Ploton
+        given-names: Pierre
+  - type: article
+    title: "Importance of spatial predictor variable selection in machine learning applications"
+    doi: 10.1016/j.ecolmodel.2019.108815
+    year: 2019
+    journal: "Ecological Modelling"
+    authors:
+      - family-names: Meyer
+        given-names: Hanna
+  # --- Companion modelling paper (shared dataset) ---
   - type: article
     title: "Digital Soil Mapping of the Steppe Zone in Northern Kazakhstan: Predicting Agrochemical Properties of Soils Using Multimodal Satellite Data and Machine and Deep Learning Techniques"
     doi: 10.3390/agriculture16111239

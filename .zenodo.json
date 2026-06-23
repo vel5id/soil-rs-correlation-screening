@@ -34,6 +34,14 @@
     "Northern Kazakhstan steppe"
   ],
   "related_identifiers": [
+    {"relation": "references", "identifier": "10.1016/j.isprsjprs.2018.11.026", "scheme": "doi", "resource_type": "publication-article"},
+    {"relation": "references", "identifier": "10.1016/j.rse.2019.01.006", "scheme": "doi", "resource_type": "publication-article"},
+    {"relation": "references", "identifier": "10.1016/j.rse.2020.112117", "scheme": "doi", "resource_type": "publication-article"},
+    {"relation": "references", "identifier": "10.1038/sdata.2018.242", "scheme": "doi", "resource_type": "publication-article"},
+    {"relation": "references", "identifier": "10.1016/j.ecolmodel.2021.109692", "scheme": "doi", "resource_type": "publication-article"},
+    {"relation": "references", "identifier": "10.1111/ecog.02881", "scheme": "doi", "resource_type": "publication-article"},
+    {"relation": "references", "identifier": "10.1038/s41467-020-18321-y", "scheme": "doi", "resource_type": "publication-article"},
+    {"relation": "references", "identifier": "10.1016/j.ecolmodel.2019.108815", "scheme": "doi", "resource_type": "publication-article"},
     {"relation": "references", "identifier": "10.3390/agriculture16111239", "scheme": "doi", "resource_type": "publication-article"},
     {"relation": "isDerivedFrom", "identifier": "10.5281/zenodo.19496423", "scheme": "doi"},
     {"relation": "isDerivedFrom", "identifier": "10.5281/zenodo.19496443", "scheme": "doi"}
