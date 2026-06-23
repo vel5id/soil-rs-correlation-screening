@@ -1,0 +1,7 @@
+Property,Single |rho| (full screen),Best composite,Composite |rho|,Delta|rho|,Composite wins?
+K2O,0.478,GNDVIxBSI_spring,0.488,+0.010,Yes
+NO3,0.431,GNDVI-NDRE_spring,0.416,-0.015,No
+S,0.418,mean_NDVI,0.36,-0.058,No
+pH,0.67,mean_GNDVI,0.591,-0.079,No
+SOC,0.373,dGNDVI_late-summer-spring,0.276,-0.097,No
+P2O5,0.525,EVI-NDRE_spring,0.39,-0.135,No

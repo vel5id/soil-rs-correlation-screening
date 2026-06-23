@@ -1,0 +1,7 @@
+Property,obs |rho|max,p_perm (unrestricted),p_perm (farm-restricted),winning feature,boot |rho| 95% CI
+pH,0.67,0.001,0.032,l8_GNDVI_spring,"[0.632, 0.703]"
+K2O,0.478,0.001,0.286,s2_BSI_spring,"[0.427, 0.524]"
+P2O5,0.509,0.001,0.259,glcm_glcm_red_ent_autumn,"[0.485, 0.567]"
+NO3,0.431,0.001,0.541,s2_SAVI_spring,"[0.377, 0.480]"
+SOC,0.373,0.001,0.865,glcm_ratio_ent_summer,"[0.319, 0.430]"
+S,0.418,0.001,0.462,ts_l8_NDVI_mean,"[0.367, 0.468]"

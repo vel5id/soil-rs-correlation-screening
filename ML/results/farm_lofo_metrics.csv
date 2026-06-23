@@ -1,0 +1,7 @@
+Property,unit,n,rho,R2,RMSE,MAE,SD (spread),IQR,range,CV%,RSE=RPD (SD/RMSE),RPD class,RSR (RMSE/SD),RPIQ (IQR/RMSE)
+pH,pH units,1085,0.434,0.303,0.548,0.409,0.656,1.0,2.7,9.4,1.2,1 - poor (distinguishes high vs low only),0.835,1.83
+SOC,%,1085,0.249,-0.109,0.577,0.389,0.548,0.58,3.77,22.4,0.95,0 - very poor (no useful prediction),1.053,1.0
+NO3,mg/kg,1085,0.215,0.15,7.276,5.042,7.896,7.1,63.84,72.6,1.09,1 - poor (distinguishes high vs low only),0.921,0.98
+P2O5,mg/kg,1085,0.418,0.133,18.902,11.972,20.312,15.5,146.78,78.8,1.07,1 - poor (distinguishes high vs low only),0.931,0.82
+K2O,mg/kg,1085,0.331,0.047,162.643,126.778,166.655,183.0,1098.0,25.6,1.02,1 - poor (distinguishes high vs low only),0.976,1.13
+S,mg/kg,1085,0.038,0.609,4.758,3.182,7.617,3.86,61.88,86.4,1.6,2 - fair,0.625,0.81

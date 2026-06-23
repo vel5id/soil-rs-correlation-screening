@@ -1,0 +1,19 @@
+target,model,rho,R2,RMSE,MAE,RPD,CCC,best_params,cv_best_R2
+pH,RF (GridSearchCV),0.8286,0.8277,0.2537,0.2073,2.418,0.8876,"{'max_features': 'sqrt', 'min_samples_leaf': 2, 'n_estimators': 300}",0.7629
+pH,ConvNeXt (single-season),,0.798,0.2747,,2.233,,Base_39Ch+0_Indices,
+pH,ConvNeXt (multi-season),,0.7718,0.292,,2.101,,Base_39Ch+5_Indices,
+SOC,RF (GridSearchCV),0.691,0.5023,0.2934,0.2262,1.423,0.7091,"{'max_features': 'sqrt', 'min_samples_leaf': 3, 'n_estimators': 300}",0.4671
+SOC,ConvNeXt (single-season),,0.5008,0.5066,,0.824,,Base_39Ch+5_Indices,
+SOC,ConvNeXt (multi-season),,0.4814,0.5163,,0.808,,Base_39Ch+1_Indices,
+NO3,RF (GridSearchCV),0.6827,0.6139,4.1334,2.6036,1.615,0.7008,"{'max_features': 'sqrt', 'min_samples_leaf': 2, 'n_estimators': 500}",0.5024
+NO3,ConvNeXt (single-season),,0.4223,5.0558,,1.32,,Base_39Ch+3_Indices,
+NO3,ConvNeXt (multi-season),,0.5749,4.3372,,1.539,,Base_39Ch+5_Indices,
+P2O5,RF (GridSearchCV),0.4562,0.2028,8.4384,6.8469,1.124,0.5199,"{'max_features': 'sqrt', 'min_samples_leaf': 2, 'n_estimators': 300}",0.408
+P2O5,ConvNeXt (single-season),,0.2227,8.3322,,1.138,,Base_39Ch+5_Indices,
+P2O5,ConvNeXt (multi-season),,-0.095,9.8894,,0.959,,Base_39Ch+0_Indices,
+K2O,RF (GridSearchCV),0.5438,0.3527,121.454,98.2314,1.247,0.5355,"{'max_features': 'log2', 'min_samples_leaf': 2, 'n_estimators': 800}",0.3911
+K2O,ConvNeXt (single-season),,0.2035,134.7243,,1.125,,Base_39Ch+3_Indices,
+K2O,ConvNeXt (multi-season),,0.2303,132.4408,,1.144,,Base_39Ch+0_Indices,
+S,RF (GridSearchCV),0.1778,-0.0082,2.9584,2.234,1.0,0.1656,"{'max_features': 'sqrt', 'min_samples_leaf': 5, 'n_estimators': 500}",0.5955
+S,ConvNeXt (single-season),,-0.0996,3.0896,,0.957,,Base_39Ch+2_Indices,
+S,ConvNeXt (multi-season),,0.0368,2.8915,,1.023,,Base_39Ch+5_Indices,

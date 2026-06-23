@@ -1,0 +1,7 @@
+Property,|rho|max (full),Winning feature,Season,Group,Leakage-suspect,|rho|max (leakage-clean),Clean winner,Farm-LOFO rho,Generalises?
+pH,0.67,l8_GNDVI_spring,spring,Spectral,no,0.67,l8_GNDVI_spring,0.434,generalises
+K2O,0.478,s2_BSI_spring,spring,Spectral,no,0.478,s2_BSI_spring,0.331,generalises
+P2O5,0.525,glcm_glcm_red_ent_autumn,autumn,Texture,YES,0.476,climate_GS_temp,0.418,generalises
+NO3,0.431,s2_SAVI_spring,spring,Spectral,no,0.431,s2_SAVI_spring,0.215,weak
+SOC,0.373,glcm_ratio_ent_summer,summer,Texture,YES,0.368,topo_slope,0.249,generalises
+S,0.418,ts_l8_NDVI_mean,static/multi,Temporal,YES,0.309,l8_SR_B2_spring,0.038,does-not-generalise

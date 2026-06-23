@@ -1,0 +1,7 @@
+target,target_label,rho_max_aligned,winner,p_adj_bh,n,pool_size,farm_lofo_rho,farm_lofo_r2,n_farms,verdict
+ph,pH (KCl),0.67,l8_GNDVI_spring,7.453925404511725e-141,1085,47,0.434,0.303,20,generalises
+soc,"SOC, %",0.368,topo_slope,1.5925974007819595e-34,1085,47,0.249,-0.109,20,generalises
+no3,"NO₃, mg/kg",0.431,s2_SAVI_spring,9.900757608874897e-49,1085,47,0.215,0.15,20,weak
+p,"P₂O₅, mg/kg",0.476,climate_GS_temp,9.00118377607348e-61,1085,47,0.418,0.133,20,generalises
+k,"K₂O, mg/kg",0.478,s2_BSI_spring,2.5179800523856692e-61,1085,47,0.331,0.047,20,generalises
+s,"S, mg/kg",0.309,l8_SR_B2_spring,9.974683143557025e-24,1085,47,0.038,0.609,20,does-not-generalise
