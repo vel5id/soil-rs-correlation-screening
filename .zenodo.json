@@ -1,0 +1,41 @@
+{
+  "title": "soil-rs-correlation-screening: code and reproducible outputs for the leakage-controlled screening of 512 remote-sensing features against agrochemical soil properties (Northern Kazakhstan steppe)",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "version": "v1.0.0",
+  "language": "eng",
+  "creators": [
+    {"name": "Yskak, Aliya", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Kuanyshbayev, Seitbek", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Bekmyrza, Zhumash", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Yermoldina, Gulnaz T.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Nugmanov, Almabek B.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Fominov, Vladimir D.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Suimenbayeva, Zhanna B.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Irzhanov, Zhassulan B.", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Lyanga, Petr", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Zhumalynov, Kuanysh", "affiliation": "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"},
+    {"name": "Bulaev, Aleksandr G.", "affiliation": "Research Center of Biotechnology, Russian Academy of Sciences, Moscow, Russia"}
+  ],
+  "description": "<p>Code and reproducible outputs for the correlation-screening study <em>&quot;Digital Soil Mapping of the Steppe Zone of Northern Kazakhstan: Relationships Between Agrochemical Soil Properties and Multimodal Remote Sensing Data&quot;</em>. Spearman screening of 512 multimodal remote-sensing features against six agrochemical soil properties (pH, SOC, NO3, P2O5, K2O, S) under leakage control (temporal alignment + out-of-farm Farm-LOFO), with Benjamini-Hochberg FDR, nested variance components, spatial-autocorrelation and confounding analyses, and an empirical feature taxonomy.</p><p>This archive contains the analysis code (<code>math_statistics/</code>, <code>ML/</code>) and the reproducible result tables and figures. All numbers and figures are deterministic (SEED = 42) and byte-reproducible from the underlying dataset as described in the README.</p><p><strong>The raw soil laboratory data are NOT included</strong>: they are commercially sensitive and are archived separately (see Related identifiers). The companion machine/deep-learning modelling paper is doi:10.3390/agriculture16111239.</p>",
+  "notes": "Raw sample-level soil laboratory data (master_dataset_old.csv, soil_analysis.xlsx) are deliberately excluded from this archive because they are commercially sensitive; the analysis is fully reproducible from that private dataset per the README. TODO for authors before publishing: (1) confirm which of the two related Zenodo records is the dataset vs. the companion code and refine the relation types if needed; (2) add ORCID iDs to creators.",
+  "keywords": [
+    "digital soil mapping",
+    "soil agrochemical properties",
+    "Spearman correlation screening",
+    "data leakage",
+    "Farm-LOFO cross-validation",
+    "spatial autocorrelation",
+    "variance decomposition",
+    "Sentinel-2",
+    "Landsat-8",
+    "Google Earth Engine",
+    "Northern Kazakhstan steppe"
+  ],
+  "related_identifiers": [
+    {"relation": "references", "identifier": "10.3390/agriculture16111239", "scheme": "doi", "resource_type": "publication-article"},
+    {"relation": "isDerivedFrom", "identifier": "10.5281/zenodo.19496423", "scheme": "doi"},
+    {"relation": "isDerivedFrom", "identifier": "10.5281/zenodo.19496443", "scheme": "doi"}
+  ]
+}

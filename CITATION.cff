@@ -1,0 +1,59 @@
+cff-version: 1.2.0
+message: "If you use this software or its reproducible outputs, please cite it as below and cite the companion paper (doi:10.3390/agriculture16111239)."
+title: "soil-rs-correlation-screening: code and reproducible outputs for the leakage-controlled screening of 512 remote-sensing features against agrochemical soil properties (Northern Kazakhstan steppe)"
+type: software
+version: v1.0.0
+date-released: "2026-06-24"
+license: CC-BY-4.0
+repository-code: "https://github.com/vel5id/soil-rs-correlation-screening"
+keywords:
+  - digital soil mapping
+  - Spearman correlation screening
+  - data leakage
+  - Farm-LOFO cross-validation
+  - spatial autocorrelation
+  - Sentinel-2
+  - Northern Kazakhstan steppe
+authors:
+  - family-names: Yskak
+    given-names: Aliya
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Kuanyshbayev
+    given-names: Seitbek
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Bekmyrza
+    given-names: Zhumash
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Yermoldina
+    given-names: "Gulnaz T."
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Nugmanov
+    given-names: "Almabek B."
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Fominov
+    given-names: "Vladimir D."
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Suimenbayeva
+    given-names: "Zhanna B."
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Irzhanov
+    given-names: "Zhassulan B."
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Lyanga
+    given-names: Petr
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Zhumalynov
+    given-names: Kuanysh
+    affiliation: "Akhmet Baitursynuly Kostanay Regional University, Kostanay, Kazakhstan"
+  - family-names: Bulaev
+    given-names: "Aleksandr G."
+    affiliation: "Research Center of Biotechnology, Russian Academy of Sciences, Moscow, Russia"
+references:
+  - type: article
+    title: "Digital Soil Mapping of the Steppe Zone in Northern Kazakhstan: Predicting Agrochemical Properties of Soils Using Multimodal Satellite Data and Machine and Deep Learning Techniques"
+    doi: 10.3390/agriculture16111239
+    year: 2026
+    journal: Agriculture
+    authors:
+      - family-names: Yskak
+        given-names: Aliya
