@@ -1,25 +1,34 @@
-"""Key figure: between-field structure (ICC) vs out-of-farm predictability.
+"""Key figure: in-sample screening |rho| inflates over honest out-of-farm predictability.
 
-Headline result of the paper. For each soil property it plots the between-field
-variance share (ICC) against two correlation metrics with the best RS feature:
+For each soil property the figure contrasts two correlation metrics with the best
+RS feature, ordered by honest predictability:
 
   * naive in-sample screening |rho| over all 512 features (open circles), and
-  * the honest out-of-farm Farm-LOFO rho (filled, coloured by verdict).
+  * the honest out-of-farm Farm-LOFO rho (filled, coloured by verdict),
 
-The honest predictability rises with ICC (Spearman ~ +0.83): properties with
-more between-field structure are genuinely more learnable from field-resolution
-remote sensing. Naive screening sits uniformly above it (the inflation gap), and
-the gap is largest for sulfur -- the property with the LOWEST between-field
-structure (ICC = 0.17) yet a high in-sample |rho| that collapses to ~0 out of
-farm. A high in-sample correlation for a property that is mostly within-field
-noise is the signature of leakage, not signal.
+with an arrow marking the in-sample -> out-of-farm collapse. Naive screening sits
+uniformly above the honest value, and the collapse is largest for the labile /
+weakly-structured properties: sulfur's in-sample |rho| ~ 0.42 falls to rho ~ 0.04
+out of farm, and NO3 collapses similarly. A high in-sample correlation that does
+not survive out-of-farm validation is the signature of leakage, not signal -- the
+reason this study screens features under out-of-farm control.
+
+NOTE (correction): an earlier version of this figure placed a between-field ICC on
+the x-axis and reported Spearman rho(ICC, out-of-farm) = +0.83 (p=0.04). That ICC
+was computed by grouping on the raw ``field_name`` label, which is reused across
+farms (81 labels vs 103 true fields), and the +0.83 was an artefact of that
+pooling. Under the true field id (farm + field_name) the ICC range is narrow
+(0.70-0.93) and the ICC-vs-predictability correlation is +0.26 (n.s., n=6); there
+is no statistically supported ICC->predictability law. The robust, reproducible
+message is the in-sample -> out-of-farm inflation shown here. The per-property ICC
+is reported alongside each marker as context, not as a predictor.
 
 Run:
     python -m math_statistics.key_figure
 
 Reads only committed inputs (master_dataset_old.csv, all_spearman_correlations.csv,
-leakage_controlled_screening.csv); ICC is recomputed via variance_decomposition.
-Deterministic -> byte-reproducible.
+leakage_controlled_screening.csv); ICC is recomputed via variance_decomposition
+(true field id). Deterministic -> byte-reproducible.
 """
 
 import matplotlib
@@ -46,7 +55,7 @@ def build():
     df = pd.read_csv(FEATURES_CSV)
     vd = variance_decomposition.run(df)["decomposition"].copy()
     vd["target"] = vd["Property"].map(LAB2T)
-    icc = vd.set_index("target")["ICC"]
+    icc = vd.set_index("target")["ICC"]  # true field id (farm + field_name)
 
     allc = pd.read_csv(OUTPUT_DIR / "all_spearman_correlations.csv")
     abscol = "abs_rho" if "abs_rho" in allc.columns else [c for c in allc.columns if "abs" in c.lower()][0]
@@ -54,59 +63,60 @@ def build():
 
     lc = pd.read_csv(OUTPUT_DIR / "leakage_controlled_screening.csv").set_index("target")
 
-    targets = ["ph", "k", "soc", "p", "no3", "s"]
-    X = np.array([icc[t] for t in targets])
+    # order properties by honest out-of-farm predictability (descending)
+    targets = sorted(["ph", "k", "soc", "p", "no3", "s"],
+                     key=lambda t: float(lc.loc[t, "farm_lofo_rho"]), reverse=True)
     Ynaive = np.array([naive[t] for t in targets])
     Yfl = np.array([lc.loc[t, "farm_lofo_rho"] for t in targets])
     verd = [lc.loc[t, "verdict"] for t in targets]
+    Icc = np.array([icc[t] for t in targets])
 
-    r_fl = spearmanr(X, Yfl).statistic
-    r_na = spearmanr(X, Ynaive).statistic
+    # honest context stats (no significant law at n=6)
+    r_fl = spearmanr(Icc, Yfl).statistic
+    p_fl = spearmanr(Icc, Yfl).pvalue
 
-    fig, ax = plt.subplots(figsize=(8.6, 6.4))
+    xpos = np.arange(len(targets))
+    fig, ax = plt.subplots(figsize=(8.8, 6.2))
 
     # inflation arrows: naive -> out-of-farm
-    for x, yn, yf in zip(X, Ynaive, Yfl):
+    for x, yn, yf in zip(xpos, Ynaive, Yfl):
         ax.annotate("", xy=(x, yf), xytext=(x, yn),
-                    arrowprops=dict(arrowstyle="-|>", color="0.6", lw=1.3, alpha=0.85))
+                    arrowprops=dict(arrowstyle="-|>", color="0.55", lw=1.6, alpha=0.9))
+        ax.annotate(f"−{yn - yf:.2f}", xy=(x, (yn + yf) / 2), xytext=(7, 0),
+                    textcoords="offset points", fontsize=8.5, color="0.4", va="center")
 
-    # naive screening (open circles)
-    ax.scatter(X, Ynaive, s=80, facecolors="none", edgecolors="0.45", linewidths=1.4, zorder=4)
-
-    # out-of-farm Farm-LOFO (filled, coloured by verdict) + trend
-    for x, yf, v, t in zip(X, Yfl, verd, targets):
-        ax.scatter(x, yf, s=180, color=VERDICT_COLOR.get(v, "0.3"),
+    # naive screening (open circles) and out-of-farm (filled, coloured by verdict)
+    ax.scatter(xpos, Ynaive, s=90, facecolors="none", edgecolors="0.4", linewidths=1.6,
+               zorder=4, label="Naïve in-sample screening |ρ| (512 features)")
+    for x, yf, v in zip(xpos, Yfl, verd):
+        ax.scatter(x, yf, s=200, color=VERDICT_COLOR.get(v, "0.3"),
                    edgecolors="black", linewidths=1.0, zorder=5)
-        dx, dy = OFFSET[t]
-        ax.annotate(SHORT[t], (x, yf), xytext=(dx, dy), textcoords="offset points",
-                    fontsize=11.5, fontweight="bold")
-    b, a = np.polyfit(X, Yfl, 1)
-    xs = np.linspace(X.min() - 0.03, X.max() + 0.03, 50)
-    ax.plot(xs, a + b * xs, color=VERDICT_COLOR["generalises"], lw=2, alpha=0.8, zorder=3)
 
-    ax.set_xlabel("ICC — between-field variance share", fontsize=12)
+    ax.set_xticks(xpos)
+    ax.set_xticklabels([f"{SHORT[t]}\nICC={icc[t]:.2f}" for t in targets], fontsize=10.5)
     ax.set_ylabel("Spearman ρ with best RS feature", fontsize=12)
-    ax.set_title("Between-field structure governs out-of-farm predictability", fontsize=13.5)
-    ax.grid(True, alpha=0.25)
-    ax.set_ylim(-0.03, float(Ynaive.max()) * 1.14)
-    ax.set_xlim(0.10, 0.78)
+    ax.set_title("In-sample screening |ρ| inflates over honest out-of-farm predictability",
+                 fontsize=13)
+    ax.grid(True, axis="y", alpha=0.25)
+    ax.set_ylim(-0.03, float(Ynaive.max()) * 1.15)
+    ax.axhline(0.0, color="0.7", lw=0.8)
 
     handles = [
-        Line2D([0], [0], marker="o", color="w", markerfacecolor="none", markeredgecolor="0.45",
+        Line2D([0], [0], marker="o", color="w", markerfacecolor="none", markeredgecolor="0.4",
                markersize=9, label="Naïve in-sample screening |ρ| (512 features)"),
         Line2D([0], [0], marker="o", color="w", markerfacecolor=VERDICT_COLOR["generalises"],
-               markeredgecolor="black", markersize=11, label="Out-of-farm ρ — generalises"),
+               markeredgecolor="black", markersize=11, label="Out-of-farm Farm-LOFO ρ — generalises"),
         Line2D([0], [0], marker="o", color="w", markerfacecolor=VERDICT_COLOR["weak"],
                markeredgecolor="black", markersize=11, label="Out-of-farm ρ — weak"),
         Line2D([0], [0], marker="o", color="w", markerfacecolor=VERDICT_COLOR["does-not-generalise"],
                markeredgecolor="black", markersize=11, label="Out-of-farm ρ — does not generalise"),
     ]
-    ax.legend(handles=handles, loc="upper left", fontsize=9, frameon=True)
+    ax.legend(handles=handles, loc="upper right", fontsize=9, frameon=True)
 
-    txt = (f"Spearman ρ(ICC, out-of-farm) = {r_fl:+.2f}\n"
-           f"Spearman ρ(ICC, in-sample)   = {r_na:+.2f}")
-    ax.text(0.985, 0.04, txt, transform=ax.transAxes, ha="right", va="bottom",
-            fontsize=9.5, family="monospace",
+    txt = (f"ICC (true field id) range {Icc.min():.2f}–{Icc.max():.2f}\n"
+           f"Spearman ρ(ICC, out-of-farm) = {r_fl:+.2f} (p={p_fl:.2f}, n=6, n.s.)")
+    ax.text(0.015, 0.04, txt, transform=ax.transAxes, ha="left", va="bottom",
+            fontsize=8.5, family="monospace",
             bbox=dict(boxstyle="round", facecolor="wheat", alpha=0.6))
 
     out = OUTPUT_DIR / "plots"
@@ -117,12 +127,12 @@ def build():
                 bbox_inches="tight", pil_kwargs={"compression": "tiff_lzw"})
     plt.close(fig)
 
-    print("targets   :", targets)
-    print("ICC       :", [round(float(v), 3) for v in X])
+    print("targets (by out-of-farm ρ):", targets)
+    print("ICC (true field id):", [round(float(v), 3) for v in Icc])
     print("naive |rho|:", [round(float(v), 3) for v in Ynaive])
     print("farmlofo rho:", [round(float(v), 3) for v in Yfl])
     print("verdict   :", verd)
-    print(f"rho(ICC, out-of-farm) = {r_fl:+.3f}   rho(ICC, in-sample) = {r_na:+.3f}")
+    print(f"rho(ICC, out-of-farm) = {r_fl:+.3f} (p={p_fl:.3f}, n=6) -> no significant law")
     print("saved -> 00_key_icc_predictability.png / .tiff")
 
 

@@ -93,12 +93,17 @@ def main():
         except Exception:
             pass
         icc_field = (vf + vfl) / (vf + vfl + ve)  # field-level ICC (between farm+field share)
+        # within-farm field ICC: how much of the within-farm variance is between-field
+        # (the correctly-defined quantity; the manuscript's old "ICC = 0.17" for S was
+        # this number mis-described as a between-field ICC under the field_name bug).
+        icc_field_in_farm = vfl / (vfl + ve) if (vfl + ve) > 0 else 0.0
         rows.append({
             "Property": LABEL[t],
             "% between-farm": round(pf, 1),
             "% between-field": round(pfl, 1),
             "% within-field": round(pw, 1),
             "ICC (farm+field)": round(icc_field, 3),
+            "ICC (field-in-farm)": round(icc_field_in_farm, 3),
             "estimator": "EMS (Searle MoM)",
             "REML cross-check (farm/field/within)": reml_str,
         })
