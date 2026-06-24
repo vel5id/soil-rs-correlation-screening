@@ -28,11 +28,13 @@ import pandas as pd
 from matplotlib.lines import Line2D
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parents[1]
-SCREEN = ROOT / "math_statistics" / "output" / "feature_screening_full.csv"
+HERE = Path(__file__).resolve().parent          # article/figures/_source
+ROOT = Path(__file__).resolve().parents[3]       # repo root
+SCREEN = HERE / "feature_screening_full.csv"
 TAX = ROOT / "ML" / "results" / "key_table_taxonomy.csv"
-VAR = ROOT / "math_statistics" / "output" / "variance_decomposition.xlsx"
-OUT = ROOT / "articles" / "article2_prediction" / "figures" / "cards"
+# corrected nested variance (true field id); supplies the field-in-farm ICC
+VAR = ROOT / "math_statistics" / "output" / "table16_corrected_variance.csv"
+OUT = HERE.parent / "cards"                      # article/figures/cards
 
 TARGETS = ["ph", "k", "p", "no3", "soc", "s"]
 LABEL = {"ph": "pH", "k": "K$_2$O", "p": "P$_2$O$_5$", "no3": "NO$_3$", "soc": "SOC", "s": "S"}
@@ -56,8 +58,8 @@ BEHAVIOUR = {
            "nitrate sensing; out-of-farm signal is weak (ρ=0.22).",
     "soc": "Regional gradient via slope/topography, but ~40% of it is the latitudinal moisture "
            "gradient; weak out-of-farm (ρ=0.25).",
-    "s": "Essentially unpredictable — no diagnostic absorption bands (400–2500 nm); ICC=0.17; the "
-         "raw screening maxima are temporal-leakage artefacts.",
+    "s": "Essentially unpredictable — no diagnostic absorption bands (400–2500 nm); field-in-farm "
+         "ICC ≈ 0.1; the raw screening maxima are temporal-leakage artefacts.",
 }
 
 GROUP_COLORS = {
@@ -104,8 +106,12 @@ def leakage_suspect(f: str) -> bool:
 def load_facts() -> dict:
     tax = pd.read_csv(TAX)
     tax.columns = [c.strip() for c in tax.columns]
-    var = pd.read_excel(VAR, sheet_name="decomposition")
-    icc = {ICC_KEY[r.Property]: float(r.ICC) for _, r in var.iterrows() if r.Property in ICC_KEY}
+    # field-in-farm ICC (between-field share within farms) — the correctly-defined
+    # quantity; the raw field_name-grouped "ICC" was a pooling artefact.
+    var = pd.read_csv(VAR)
+    icc_csv_key = {"pH": "ph", "SOC": "soc", "K2O": "k", "P2O5": "p", "NO3": "no3", "S": "s"}
+    icc = {icc_csv_key[str(r["Property"]).strip()]: float(r["ICC (field-in-farm)"])
+           for _, r in var.iterrows() if str(r["Property"]).strip() in icc_csv_key}
     facts = {}
     for _, r in tax.iterrows():
         t = TAX_KEY.get(str(r["Property"]).strip())
@@ -199,7 +205,7 @@ def card(t: str, d: pd.DataFrame, f: dict, rng: np.random.Generator) -> None:
     ax.legend(handles=handles, frameon=False, fontsize=8, loc="lower left", ncol=2)
 
     facts = (f"|ρ|max (clean) = {f['rho_max']:.2f}      Farm-LOFO ρ = {f['farm_lofo']:.2f}      "
-             f"between-field ICC = {f['icc']:.2f}      "
+             f"field-in-farm ICC = {f['icc']:.2f}      "
              f"tiers: {f['gen']} generalise ({f['rob']} robust) / {f['zonal']} zonal / "
              f"{f['unstable']} unstable / {f['weak']} weak")
     fig.text(0.05, 0.93, f"{LABEL[t]}  —  {VERDICT[t]}", fontsize=16, fontweight="bold", va="top")

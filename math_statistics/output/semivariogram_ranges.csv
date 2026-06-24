@@ -1,0 +1,7 @@
+Property,range_km,sill,nugget,nugget_ratio,model,n_fields
+pH,162.0,0.5393,0.0,0.0,spherical,103
+SOC,110.0,0.3595,0.0,0.0,spherical,103
+K2O,117.0,26143.7031,0.0,0.0,spherical,103
+NO3,100.0,53.4276,0.0,0.0,spherical,103
+P2O5,72.0,389.8332,0.0,0.0,spherical,103
+S,63.0,57.4832,0.0,0.0,spherical,103

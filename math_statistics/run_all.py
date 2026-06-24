@@ -220,7 +220,7 @@ def generate_text_report(all_results: dict) -> str:
     if "decomposition" in vd:
         ph_row = vd["decomposition"][vd["decomposition"]["Property"] == "pH (KCl)"]
         if not ph_row.empty:
-            lines.append(f"pH between-field variance: {ph_row.iloc[0]['Pct_between']}% (article claims 78.7%)")
+            lines.append(f"pH between-field variance (true field id): {ph_row.iloc[0]['Pct_between']}% (reference ~93.3%)")
 
     return "\n".join(lines)
 
