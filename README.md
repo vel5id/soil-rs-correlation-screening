@@ -15,24 +15,25 @@ dataset. The two studies answer different questions - *which* remote-sensing fea
 paper) - and share no results or manuscript text.
 
 ## Key result
-![Key result: in-sample screening |ρ| inflates over out-of-farm predictability](math_statistics/output/plots/00_key_icc_predictability.png)
+![Feature tiers and in-sample → out-of-farm ρ shrinkage, per soil property](article/figures/fig_feature_tiers_predictability.png)
 
-**Naïve in-sample screening |ρ| inflates over honest out-of-farm predictability.** For each soil
-property, naïve in-sample screening |ρ| over all 512 features (open circles) sits uniformly above the
-honest out-of-farm Farm-LOFO ρ (filled, grey arrows mark the collapse), and the inflation is largest
-for the labile, weakly field-structured properties: sulfur's screening |ρ| ≈ 0.42 collapses to ≈ 0.04
-out of farm, and NO₃ from ≈ 0.43 to ≈ 0.22. pH, P₂O₅ and K₂O generalise across farms (out-of-farm ρ =
-0.33–0.43). A strong in-sample correlation that does not survive out-of-farm validation is a fingerprint
-of leakage, not signal — the reason this study screens features under out-of-farm control.
+**Remote-sensing predictability of the six soil properties** (ordered by in-sample |ρ|max).
+*Left* — each property's 512 candidate RS features split into robustness tiers: only a small
+*robust* / transferable tail exists (at most ~a dozen features; **none** for SOC or sulfur), while the
+bulk are zonal-only, year-unstable, or weak (no signal). *Right* — the in-sample leakage-clean |ρ|max
+ceiling (open markers) collapses to the honest out-of-farm Farm-LOFO ρ (filled); the shrinkage is
+largest for the labile, weakly-structured properties — **sulfur 0.31 → 0.04** and **NO₃ 0.43 → 0.21** —
+marking those correlations as leakage, not transferable signal. A strong in-sample correlation that does
+not survive out-of-farm validation is the reason this study screens features under out-of-farm control.
+Reproducible via `python article/figures/_source/build_table7_predictability_figure.py` (recomputed from
+`ML/results/key_table_taxonomy.csv`; no hardcoded values).
 
-Note: the per-property between-field ICC must be computed with the **true field identity**
-(`farm + field_name`); the raw `field_name` label is reused across farms (81 labels for 103 physical
+Methodological note: the per-property between-field ICC must be computed with the **true field identity**
+(`farm + field_name`). The raw `field_name` label is reused across farms (81 labels for 102 physical
 fields, some up to ~500 km apart), and grouping on it alone produces a spurious ICC (e.g. S = 0.17
-instead of 0.83). Under the correct field id the ICC range is narrow (0.70–0.93) and does **not**
-significantly predict out-of-farm ρ (Spearman ρ = +0.26, p = 0.62, n = 6); there is no ICC–predictability
-law. The robust, reproducible finding is the in-sample → out-of-farm collapse shown here. Reproducible
-via `python -m math_statistics.key_figure` (deterministic; the committed PNG re-renders byte-identically
-within a pinned environment).
+instead of 0.83) and a spurious "ICC governs predictability" law (ρ = +0.83). Under the correct field id
+the ICC range is narrow (0.70–0.93) and does **not** significantly predict out-of-farm ρ (n = 6) — the
+robust finding is the in-sample → out-of-farm collapse shown above, not an ICC–predictability law.
 
 ## Contents
 - `math_statistics/` - screening pipeline: Spearman screening with Benjamini-Hochberg FDR
@@ -52,7 +53,8 @@ within a pinned environment).
 ## Reproduce
     python -m venv .venv && . .venv/bin/activate && pip install -e .
     python -m math_statistics.run_all       # screening + corrected tables + all 18 figures
-    python -m math_statistics.key_figure     # headline figure: ICC vs out-of-farm predictability
+    python article/figures/_source/build_table7_predictability_figure.py  # headline figure (Key result)
+    python -m math_statistics.key_figure     # secondary ICC-vs-out-of-farm diagnostic
     python ML/cv_scheme_comparison.py        # Spatial-block + LLTO metrics
     python ML/feature_quality_cv.py          # per-feature quality
     python ML/feature_leakage_taxonomy.py    # empirical leakage taxonomy
@@ -70,7 +72,7 @@ Caveat: farm_lofo_feature_importance.py is a secondary diagnostic (not used in t
 ### Figures
 `python -m math_statistics.run_all` regenerates all 18 figures from `data/features/master_dataset_old.csv` into `math_statistics/output/plots/`. They are **byte-identical across independent runs** — verified by SHA-256 over two full runs (all 18 PNG *and* all 18 TIFF matched). Determinism follows from a fixed seed (`numpy.random.default_rng(42)` in the bootstrap-CI panel) and otherwise data-only plotting. The committed 300-dpi PNGs are shown in [Figures](#figures) below; the 600-dpi LZW-TIFF variants regenerate identically but are git-ignored (~54 MB). Two of the 20 defined panels are intentionally not produced: a variance-inflation-factor panel (slot 13) was dropped because the engineered 512-feature block is rank-deficient — every feature is an exact linear combination of the others, so every VIF diverges to ∞ and the chart renders empty and misleading; multicollinearity is instead reported as effective dimensionality (≈228 independent features of 512). A derived-soil top-correlations panel (slot 19) is skipped when its input table is empty. The standalone `python -m math_statistics.plots` entry point now reads the same `FEATURES_CSV` as the rest of the pipeline (it previously referenced a private `full_dataset.csv` that is not shipped in this repository).
 
-The headline figure (`00_key_icc_predictability`, see [Key result](#key-result)) is produced separately by `python -m math_statistics.key_figure`. It recomputes the per-property between-field ICC with the **true field id** (`farm + field_name`) from the dataset and reads only committed tables (`all_spearman_correlations.csv`, `leakage_controlled_screening.csv`), has no random component, and re-renders byte-identically within a pinned environment. It contrasts naïve in-sample screening |ρ| with the honest out-of-farm Farm-LOFO ρ per property (ordered by out-of-farm ρ); the ICC is shown only as context and does **not** significantly predict out-of-farm ρ (Spearman ρ = +0.26, p = 0.62, n = 6). An earlier draft of this figure grouped ICC on the raw `field_name` label (reused across farms) and reported a spurious ρ = +0.83 “ICC governs predictability” law; that has been corrected.
+The headline figure (`fig_feature_tiers_predictability`, see [Key result](#key-result)) is produced by `python article/figures/_source/build_table7_predictability_figure.py`, which recomputes the per-property feature-robustness tiers and the in-sample → out-of-farm ρ shrinkage from `ML/results/key_table_taxonomy.csv` (no hardcoded values). A secondary diagnostic, `00_key_icc_predictability` (`python -m math_statistics.key_figure`), plots the same in-sample → out-of-farm collapse against the per-property between-field ICC, recomputed with the **true field id** (`farm + field_name`); the ICC is context only and does **not** significantly predict out-of-farm ρ (Spearman ρ = +0.26, p = 0.62, n = 6). An earlier draft grouped ICC on the raw `field_name` label (reused across farms) and reported a spurious ρ = +0.83 “ICC governs predictability” law; that has been corrected.
 
 ## Figures
 All panels below are regenerated byte-for-byte by `python -m math_statistics.run_all` (300-dpi PNG).
