@@ -1,7 +1,7 @@
 Property,% between-farm,% between-field,% within-field,ICC (farm+field),ICC (field-in-farm),estimator,REML cross-check (farm/field/within)
-pH,86.9,6.0,7.1,0.929,0.46,EMS (Searle MoM),n/a
-SOC,66.0,12.8,21.2,0.788,0.376,EMS (Searle MoM),n/a
-K2O,49.5,21.3,29.2,0.708,0.422,EMS (Searle MoM),n/a
-P2O5,71.4,11.0,17.5,0.825,0.386,EMS (Searle MoM),n/a
-NO3,57.7,19.9,22.4,0.776,0.471,EMS (Searle MoM),n/a
+pH,87.2,5.8,7.0,0.93,0.454,EMS (Searle MoM),n/a
+SOC,66.0,12.8,21.2,0.788,0.377,EMS (Searle MoM),n/a
+K2O,49.7,21.4,28.9,0.711,0.426,EMS (Searle MoM),n/a
+P2O5,73.1,10.0,16.9,0.831,0.371,EMS (Searle MoM),n/a
+NO3,57.5,19.8,22.7,0.773,0.467,EMS (Searle MoM),n/a
 S,81.1,2.0,16.9,0.831,0.105,EMS (Searle MoM),n/a
