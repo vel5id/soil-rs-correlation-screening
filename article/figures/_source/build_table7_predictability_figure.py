@@ -32,9 +32,10 @@ import pandas as pd
 from matplotlib.lines import Line2D
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parents[1]
+HERE = Path(__file__).resolve().parent           # article/figures/_source
+ROOT = Path(__file__).resolve().parents[3]        # repo root
 SRC = ROOT / "ML" / "results" / "key_table_taxonomy.csv"
-OUT_DIR = ROOT / "articles" / "article2_prediction" / "figures"
+OUT_DIR = HERE.parent                             # article/figures
 TOTAL_FEATURES = 512
 
 # Ordinal good -> bad tier colours, drawn from the article Tableau palette.
