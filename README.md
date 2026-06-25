@@ -46,7 +46,7 @@ robust finding is the in-sample → out-of-farm collapse shown above, not an ICC
   (per-feature within/between/cross-year decomposition), `feature_leakage_taxonomy.py` (empirical
   generalizable / zonal_only / unstable / weak classification).
 - `data/features/master_dataset_old.csv` - 530-column matrix (11 meta + 7 soil targets + 512 RS
-  features; 1085 samples / 20 farms / 81 fields, 2022-2023).
+  features; 1085 samples / 20 farms / 102 physical fields (81 reused field_name labels), 2022-2023).
 - `math_statistics/output/`, `ML/results/` - committed, reproducible result tables.
 - `article/` - the manuscript.
 
@@ -55,6 +55,7 @@ robust finding is the in-sample → out-of-farm collapse shown above, not an ICC
     python -m math_statistics.run_all       # screening + corrected tables + all 18 figures
     python article/figures/_source/build_table7_predictability_figure.py  # headline figure (Key result)
     python -m math_statistics.key_figure     # secondary ICC-vs-out-of-farm diagnostic
+    python -m math_statistics.adversarial_s  # why sulfur is unpredictable (between/within-farm decomposition)
     python ML/cv_scheme_comparison.py        # Spatial-block + LLTO metrics
     python ML/feature_quality_cv.py          # per-feature quality
     python ML/feature_leakage_taxonomy.py    # empirical leakage taxonomy

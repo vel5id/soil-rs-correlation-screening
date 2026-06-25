@@ -129,6 +129,50 @@ def compute_morans_i_all(df: pd.DataFrame, max_samples: int = 2000) -> pd.DataFr
     return pd.DataFrame(rows)
 
 
+def declustered_morans_i_all(df: pd.DataFrame) -> pd.DataFrame:
+    """Declustered Moran's I on the TRUE field unit (farm + field_name).
+
+    Tables 10 & 14. Each physical field (farm + field_name, 103 units) is collapsed
+    to its mean property value at its mean centroid, removing within-field
+    pseudoreplication, and Moran's I is recomputed on the field-level means.
+
+    NB: the grouping key MUST be the true field id (farm + field_name); the raw
+    ``field_name`` label is reused across farms (81 labels vs 103 physical fields,
+    some ~500 km apart), so grouping on it alone averages physically distinct
+    fields together and spuriously collapses the declustered I (e.g. S 0.49 -> 0.15).
+    Consistent with the field id used in variance_decomposition.py / semivariogram.py.
+    """
+    n_sample = len(df.dropna(subset=["centroid_lon", "centroid_lat"]))
+    d = df.copy()
+    d["field_uid"] = d["farm"].astype(str) + "__" + d["field_name"].astype(str)
+    agg = {"centroid_lon": ("centroid_lon", "mean"),
+           "centroid_lat": ("centroid_lat", "mean")}
+    agg.update({t: (t, "mean") for t in SOIL_TARGETS})
+    fm = d.groupby("field_uid").agg(**agg).reset_index()
+
+    coords = fm[["centroid_lon", "centroid_lat"]].values
+    W, W_raw = _inverse_distance_weights(coords)
+
+    rows = []
+    for col in SOIL_TARGETS:
+        not_null = fm[col].notna().to_numpy()
+        vals = fm.loc[not_null, col].values
+        res = morans_i(vals, W[np.ix_(not_null, not_null)], W_raw[np.ix_(not_null, not_null)])
+        I = res["I"]
+        # Clifford effective sample size on the FULL sample n (not the field count):
+        # n_eff = n * (1 - I) / (1 + I)
+        n_eff = n_sample * (1 - I) / (1 + I) if not np.isnan(I) else np.nan
+        rows.append({
+            "Property": SOIL_LABELS[col],
+            "n_fields": int(not_null.sum()),
+            "Morans_I_field": round(I, 4) if not np.isnan(I) else np.nan,
+            "z_field": round(res["z_score"], 2) if not np.isnan(res["z_score"]) else np.nan,
+            "p_field": res["p_value"],
+            "n_eff_field": int(round(n_eff)) if not np.isnan(n_eff) else np.nan,
+        })
+    return pd.DataFrame(rows)
+
+
 def latitudinal_gradient(df: pd.DataFrame) -> pd.DataFrame:
     """Check article claim: pH increases from north to south, SOC decreases.
 
@@ -153,10 +197,12 @@ def latitudinal_gradient(df: pd.DataFrame) -> pd.DataFrame:
 def run(df: pd.DataFrame) -> dict[str, pd.DataFrame]:
     """Run spatial analysis."""
     moran = compute_morans_i_all(df)
+    moran_declustered = declustered_morans_i_all(df)
     gradient = latitudinal_gradient(df)
 
     results = {
         "morans_i": moran,
+        "morans_i_declustered": moran_declustered,
         "latitudinal_gradient": gradient,
     }
 

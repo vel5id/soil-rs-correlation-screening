@@ -1,0 +1,9 @@
+feature,rho_total,rho_between_farm,rho_within_farm,p0_partial_pH,p0_partial_pH_lat_MAP
+ts_l8_NDVI_mean,0.418,0.753,0.017,0.302,0.31
+l8_SAVI_late_summer,0.383,0.776,0.051,0.321,0.325
+ts_spectral_SAVI_mean,0.367,0.692,-0.021,0.26,0.253
+ts_spectral_NDVI_mean,0.367,0.692,-0.021,0.26,0.253
+ts_s2_SAVI_mean,0.367,0.692,-0.021,0.26,0.253
+ts_s2_NDVI_mean,0.367,0.692,-0.021,0.26,0.253
+ts_l8_SAVI_mean,0.363,0.63,0.038,0.241,0.257
+ts_spectral_NDRE_mean,0.363,0.534,-0.007,0.243,0.24

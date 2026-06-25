@@ -2,6 +2,42 @@
 
 All edited/new content is highlighted GREEN in `article/manuscript_edited.docx`.
 
+## Reproducibility re-audit follow-up (edits to `article/manuscript_corrected.docx`)
+Independent recompute-from-raw-data audit; every number traced to `data/features/master_dataset_old.csv`.
+- **Moran's I declustering moved to the true field id (farm + field_name, n = 103)** — it previously
+  grouped on the reused `field_name` label (n = 81), the same artefact already corrected for the ICC.
+  Under the true field id sulfur's declustered I is **0.49, not 0.15** (ΔI −0.27, z = 13.8, p ≈ 0), so
+  its spatial autocorrelation is **real but purely regional (between-farm)**, not a sampling artefact —
+  S remains unpredictable via the out-of-farm Farm-LOFO ρ = 0.04 and ~2 % between-field-within-farm
+  variance, but the "artefact" framing is dropped. Updated: Tables 10 & 14 (all six properties' I_field,
+  z_field, p_field, ΔI, n_eff_field, Ratio, Pattern; S Pattern Artifact→Mixed), abstract, §2.4.3, §3.3.2
+  (n_eff_field S 802→368; threshold criterion |ΔI|>0.2→>0.08 so NO3 stays I_field; §4.6 n_eff range
+  81–802→81–419), §3.6, §4.3, Conclusions. New reproducible generator:
+  `spatial_analysis.declustered_morans_i_all()` (Table 14/10 were previously hard-coded, no code).
+- **§4.2 stale field_name ICC removed.** pH/SOC/K2O "ICC of 0.54–0.71" (the old field_name grouping)
+  → true-field **0.71–0.93**; "inter-farm variance 45–57%" → **50–87%** (Table 16); SOC "|ρ| = 0.35,
+  ICC = 0.54" → **0.37 / 0.79**; R²equiv 0.12→0.14; declustered "I ≥ 0.50" → "≈ 0.50".
+- **Table 13 single-|ρ| baseline aligned to the reproducible code** (`corrected_tables.py`, full-screen
+  max): S 0.383→**0.418** (Δ −0.058), SOC 0.368→**0.373** (Δ −0.097); abstract, §3.5 ("gap < 0.025"→
+  "≤ 0.06") and §4.1(iii) deltas updated to match.
+- `README.md` field count made consistent (102 physical fields / 81 reused labels). `config.py`
+  `ARTICLE_CLAIMS` stale inter-soil constants updated to the verified Table 6 values.
+- Everything else reproduces to the digit (Tables 3–6, 15, 16, screening |ρ|max, Farm-LOFO ρ,
+  confounding 42 %); all sampled DOIs (Crossref + Zenodo) resolve. NB: the **+0.83** in the Figure 12
+  section below is the *pre-correction* field_name artefact value — the current manuscript/code report
+  the corrected ρ = +0.26 (n.s., n = 6).
+
+## New: adversarial decomposition of sulfur's apparent predictability (§4.3)
+Added an explanatory paragraph in §4.3 answering "why does S show high indicators if it is not
+optically sensed?". An adversarial battery (each test *trying* to rescue S) shows all three high
+indicators (|ρ|max 0.42, Moran I 0.77, ICC 0.83) are the same **between-farm artefact**: per-feature
+between-farm ρ = 0.53–0.78 but within-farm |ρ| ≤ 0.05; Farm-LOFO rank ρ = 0.04 with R² = 0.61
+decomposing to R²between = 0.77 / R²within = −0.06; farm-restricted spatial-permutation p = 0.46
+(vs 0.03 for pH); ~28 % pH-mediated; the only out-of-farm-recoverable signal is the soil-chemical
+pH co-variation (lab pH → S ρ = 0.28), not spectral. Significant (n_eff = 143) but spatially
+confounded — significance ≠ predictability. New reproducible module `math_statistics/adversarial_s.py`
+→ `output/adversarial_s_decomposition.csv`; spatial-permutation row from `permutation_bootstrap.csv`.
+
 ## Textual differentiation from the companion paper (Agriculture 2026, 16(11), 1239)
 Measured verbatim 8-gram overlap with the published paper = 6.5% (mostly shared
 references/affiliation, which is normal). Localised same-study prose rewritten (facts unchanged, wording differentiated): study area, climate, relief/management,
