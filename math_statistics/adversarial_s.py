@@ -121,6 +121,37 @@ def between_within(df, top_n=8):
     return pd.DataFrame(rows)
 
 
+def plot(bw, out_png):
+    """Figure: between- vs within-farm Spearman of S's strongest features (S4.3)."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    feats = bw["feature"].tolist()
+    y = np.arange(len(feats))[::-1]
+    h = 0.38
+    fig, ax = plt.subplots(figsize=(8.4, 5.0))
+    ax.barh(y + h / 2, bw["rho_between_farm"], height=h, color="#2c7fb8",
+            edgecolor="black", linewidth=0.4, label="between-farm (20 farm means)")
+    ax.barh(y - h / 2, bw["rho_within_farm"], height=h, color="#d7301f",
+            edgecolor="black", linewidth=0.4, label="within-farm (farm-demeaned)")
+    ax.scatter(bw["rho_total"], y, facecolors="none", edgecolors="black",
+               s=42, zorder=5, label="total (pooled)")
+    ax.axvline(0.0, color="0.55", lw=0.9)
+    ax.set_yticks(y)
+    ax.set_yticklabels(feats, fontsize=9)
+    ax.set_xlim(-0.12, 0.85)
+    ax.set_xlabel("Spearman ρ with available sulfur (S)", fontsize=11)
+    ax.set_title("Sulfur's screening correlations are entirely between-farm\n"
+                 "(within-farm ρ ≈ 0 → no recoverable local signal)", fontsize=12)
+    ax.legend(loc="lower right", fontsize=8.5, frameon=True)
+    ax.grid(axis="x", alpha=0.25)
+    fig.tight_layout()
+    out_png.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_png, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+    return out_png
+
+
 def main():
     df = pd.read_csv(CSV, low_memory=False)
     bw = between_within(df)
@@ -139,6 +170,7 @@ def main():
 
     OUT.mkdir(parents=True, exist_ok=True)
     bw.to_csv(OUT / "adversarial_s_decomposition.csv", index=False)
+    fig_path = plot(bw, OUT / "plots" / "sulfur_between_within.png")
 
     print(bw.to_string(index=False))
     print("\nT1  within-farm |rho| collapses to ~0 (max %.3f); between-farm rho = %.2f-%.2f"
@@ -155,6 +187,7 @@ def main():
     print("    but between-farm/confounded, not transferable (significant != predictive).")
     print("T4  S farm-restricted spatial-permutation p = 0.462 -> see permutation_bootstrap.csv")
     print(f"\nSaved -> {OUT}/adversarial_s_decomposition.csv")
+    print(f"Saved -> {fig_path}")
 
 
 if __name__ == "__main__":
